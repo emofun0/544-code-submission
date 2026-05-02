@@ -4,9 +4,20 @@
 
 ### Team member: Guanqi Wang, Shaolin Tan, Zihan Xie, Minghui Yang, Yipeng Wang
 
+
 # Dataset Preparation
 
-### TBDTBD
+We use the HotpotQA dataset, which supports multi-hop reasoning.
+
+Two evaluation settings:
+
+1. Fullwiki Setting
+Requires retrieving relevant documents from Wikipedia
+Used with RAG pipeline
+2. Distractor Setting
+Each question comes with candidate paragraphs
+Retrieval is simplified (TF-IDF)
+
 
 # Running Instructions
 
@@ -42,4 +53,17 @@ python evaluate_hotpot_ollama_old.py \
   --model {ollama_model_name} \
   --dataset-dir data/distractor \
   --num-samples 200
+```
+## Local Qwen Baseline
+
+### Model Setup
+We use:
+
+```
+Qwen/Qwen2.5-7B-Instruct
+```
+
+### Run Notebook
+```
+jupyter notebook HotpotQA_Qwen2.5-7B_baseline.ipynb
 ```
