@@ -70,7 +70,7 @@ jupyter notebook HotpotQA_Qwen2.5-7B_baseline.ipynb
 ## Running Llama 3.3 8B on first 200 distractor sample
 Preferably run it on Google Colab:
 1. Open file with Google Colab.
-2. Select GPU(preferable: A100) and click Run All.
+2. Select GPU(preferably A100) and click Run All.
 
 Running in local machine:
 ```
