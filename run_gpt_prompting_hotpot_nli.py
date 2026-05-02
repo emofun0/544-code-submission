@@ -15,9 +15,8 @@ from transformers.pipelines.pt_utils import KeyDataset
 from openai import OpenAI
 
 
-# =========================
+
 # Config
-# =========================
 SEED = 544
 MODEL_NAME = "gpt-5.4-mini"
 MAX_EXAMPLES = 200
@@ -33,14 +32,12 @@ NLI_ENTAILMENT_THRESHOLD = 0.35
 random.seed(SEED)
 os.environ["PYTHONHASHSEED"] = str(SEED)
 
-# insert api key here
-client = OpenAI(api_key="", max_retries=8, timeout=60.0)
+client = OpenAI(max_retries=8, timeout=60.0)
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 
-# =========================
+
 # Load dataset
-# =========================
 raw_dataset = load_dataset("hotpot_qa", "distractor")
 dataset = DatasetDict({
     "validation": raw_dataset["validation"].select(range(MAX_EXAMPLES))
@@ -48,9 +45,8 @@ dataset = DatasetDict({
 val_set = dataset["validation"]
 
 
-# =========================
+
 # Context helpers
-# =========================
 def _coerce_to_text(value):
     if isinstance(value, str):
         return value
@@ -106,9 +102,9 @@ def _example_sentence_candidates(example):
     return candidates
 
 
-# =========================
+
 # Prompting strategies
-# =========================
+
 def prompt_baseline(q, c):
     return f"""Answer the question based on the context.
 
@@ -151,9 +147,8 @@ Reasoning (with citations):
 Answer:"""
 
 
-# =========================
+
 # GPT call / generation
-# =========================
 def call_gpt(prompt, max_retries=MAX_RETRIES):
     for attempt in range(max_retries):
         try:
@@ -235,9 +230,8 @@ Answer: ..."""
     return revised
 
 
-# =========================
+
 # Retrieval
-# =========================
 def build_corpus(examples, show_progress=True):
     corpus = []
     iterator = tqdm(examples, desc="Building retrieval corpus") if show_progress else examples
@@ -267,9 +261,8 @@ def retrieve_within_example(example, query, k=5):
     return "\n".join(texts[i] for i in topk_idx if scores[i] > 0)
 
 
-# =========================
+
 # NLI metrics
-# =========================
 NLI_DEVICE = 0 if os.environ.get("CUDA_VISIBLE_DEVICES", "") != "" else -1
 try:
     nli = pipeline("text-classification", model=NLI_MODEL_NAME, top_k=None, device=NLI_DEVICE)
@@ -407,9 +400,8 @@ def hallucination_metrics(context, generated_text, entailment_threshold=NLI_ENTA
     }
 
 
-# =========================
-# Official-style answer metrics
-# =========================
+
+# answer metrics
 YES_NO_NOANSWER = {"yes", "no", "noanswer"}
 
 
@@ -464,9 +456,8 @@ def score_answer(prediction, gold_answer):
     return em, f1, prec, recall
 
 
-# =========================
+
 # Supporting fact helpers
-# =========================
 def _gold_sp_pairs(example):
     sf = example.get("supporting_facts", {})
 
@@ -600,9 +591,8 @@ def evaluate_official_predictions(prediction, dataset):
     }
 
 
-# =========================
+
 # Save/load helpers
-# =========================
 def load_existing_predictions(save_name):
     out_path = os.path.join(OUTPUT_DIR, f"{save_name}.json")
     if os.path.exists(out_path):
@@ -620,9 +610,9 @@ def save_prediction_file(save_name, prediction):
     return out_path
 
 
-# =========================
+
 # Evaluation runner with NLI
-# =========================
+
 def _build_context_for_mode(example, question, mode, k):
     if mode in ("rag", "rag_cot"):
         local_ctx = retrieve_within_example(example, question, k)
@@ -720,9 +710,9 @@ def evaluate(dataset, mode="baseline", k=5, save_name=None, entailment_threshold
     return results
 
 
-# =========================
+
 # Run experiments
-# =========================
+
 if __name__ == "__main__":
     print("Baseline:", evaluate(val_set, mode="baseline", save_name="baseline_gpt54mini_nli_200"))
     print("Grounded:", evaluate(val_set, mode="grounded", save_name="grounded_gpt54mini_nli_200"))
