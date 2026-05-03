@@ -126,7 +126,7 @@ def real_generate_json(prompt):
     }
 
 
-def run(input_path, output_path, max_examples=100):
+def run(input_path, output_path, max_examples=200):
     data = load_hotpot(input_path)
     results = []
 
@@ -173,7 +173,7 @@ def run(input_path, output_path, max_examples=100):
 if __name__ == "__main__":
     isDirect = False
     run(
-        input_path="data/hotpot_dev_distractor_100.json",
-        output_path="outputs/baseline_grounded_100.json",
-        max_examples=100
+        input_path="data/hotpot_dev_distractor_200.json",
+        output_path="outputs/baseline_grounded_200.json",
+        max_examples=200
     )
