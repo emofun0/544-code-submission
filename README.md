@@ -85,6 +85,7 @@ Prompt-based QA (Direct & Grounded)
 Evaluation (EM / F1 / Supporting Facts)
 
 File Structure:
+```bash
 ├── download_hotpot.py 
 ├── data_loader.py 
 ├── run_baseline.py 
@@ -93,6 +94,7 @@ File Structure:
 │ └── hotpot_dev_distractor_200.json 
 ├── outputs/ │ 
 └── baseline_grounded_200.json
+```
 
 Components:
 1. download_hotpot.py
