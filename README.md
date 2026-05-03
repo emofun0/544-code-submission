@@ -91,9 +91,9 @@ File Structure:
 ├── run_baseline.py 
 ├── eval_qa.py 
 ├── data/ 
-│ └── hotpot_dev_distractor_200.json 
-├── outputs/ │ 
-└── baseline_grounded_200.json
+│     └── hotpot_dev_distractor_200.json 
+├── outputs/
+│      └── baseline_grounded_200.json
 ```
 
 Components:
