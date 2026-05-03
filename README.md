@@ -175,12 +175,15 @@ Temperature: 0
 Context is fully provided (no retrieval)
 Supporting facts are predicted and evaluated
 
-### Limitations
-No retrieval (uses full context → noisy)
-LLM output may require JSON parsing fixes
-API latency and cost
+##GPT-5.4-mini Full_prompting:
+(Prefered running in Pycharm)
+## Including:
+run_gpt_prompting_hotpot_nli.py
 
-### Future Improvements
-Add TF-IDF / BM25 retrieval
-Add CoT prompting
-Improve supporting fact extraction
+
+## Configuration:
+1. create a Python 3.10 env under miniconda3 (if needed)
+2. in environment variables, set OPENAI_API_KEY= "your_api_key"
+3.
+
+
