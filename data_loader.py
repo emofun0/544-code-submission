@@ -20,7 +20,7 @@ def format_context(example, max_docs=None):
     return "\n\n".join(blocks)
 
 if __name__ == "__main__":
-    data = load_hotpot("data/hotpot_dev_distractor_100.json")
+    data = load_hotpot("data/hotpot_dev_distractor_200.json")
     ex = data[0]
 
     print("QUESTION:")
@@ -28,4 +28,4 @@ if __name__ == "__main__":
     print("\nANSWER:")
     print(ex["answer"])
     print("\nFORMATTED CONTEXT:")
-    print(format_context(ex, max_docs=2))
+    print(format_context(ex, max_docs=200))
