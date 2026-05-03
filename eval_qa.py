@@ -234,4 +234,4 @@ def evaluate(path):
 
 
 if __name__ == "__main__":
-    evaluate("outputs/baseline_grounded_100.json")
+    evaluate("outputs/baseline_grounded_200.json")
