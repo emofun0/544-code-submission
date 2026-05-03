@@ -77,7 +77,7 @@ Running in local machine:
 jupyter notebook llama3.3_8B_distractor200.ipynb
 ```
 
-### GPT-5.4-MINI BASELINE
+## GPT-5.4-MINI BASELINE
 
 The pipeline includes:
 Dataset preparation
