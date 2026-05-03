@@ -179,11 +179,11 @@ Supporting facts are predicted and evaluated
 (Prefered running in Pycharm)
 ## Including:
 run_gpt_prompting_hotpot_nli.py
-
+hot_dev_distractor_200.json
 
 ## Configuration:
 1. create a Python 3.10 env under miniconda3 (if needed)
 2. in environment variables, set OPENAI_API_KEY= "your_api_key"
-3.
+3. Using Pycharm's "Run" button on the top to run the file.
 
 
