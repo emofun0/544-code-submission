@@ -99,9 +99,13 @@ Evaluation (EM / F1 / Supporting Facts)
 ### Components:
 ### 1. download_hotpot.py
 Downloads the HotpotQA dataset (distractor setting) and saves 200 samples:
+```
 python download_hotpot.py
+```
 Output:
+```
 data/hotpot_dev_distractor_200.json
+```
 
 ### 2. data_loader.py
 Responsible for:
@@ -133,15 +137,23 @@ insert api_key in run_baseline.py
 ### How to Run:
 
 ### Step 1: Download dataset
+```
 python download_hotpot.py
+```
 
 ### Step 2: Run baseline
+```
 python run_baseline.py
+```
 Output:
+```
 outputs/baseline_grounded_200.json
+```
 
 ### Step 3: Evaluate
+```
 python eval_qa.py
+```
 Example output:
 Total: 200
 Ans EM: 0.45
