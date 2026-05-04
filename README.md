@@ -184,6 +184,10 @@ hot_dev_distractor_200.json
 ## Configuration:
 1. create a Python 3.10 env under miniconda3 (if needed)
 2. in environment variables, set OPENAI_API_KEY= "your_api_key"
-3. Using Pycharm's "Run" button on the top to run the file.
+3. Recommand using Pycharm's "Run" button on the top to run the file, or in the Python 3.10 env:
+```
+python run_gpt_prompting_hotpot_nli.py
+
+```
 
 
