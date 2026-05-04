@@ -9,15 +9,10 @@
 
 We use the HotpotQA dataset, which supports multi-hop reasoning.
 
-Two evaluation settings:
-
-1. Fullwiki Setting
-Requires retrieving relevant documents from Wikipedia
-Used with RAG pipeline
-2. Distractor Setting
-Each question comes with candidate paragraphs
-Retrieval is simplified (TF-IDF)
-
+Directly download with the following command:
+```bash
+python download_hotpot.py
+```
 
 # Running Instructions
 
@@ -31,15 +26,29 @@ First download ollama and local LLMs.
 - `evaluate_hotpot_ollama.py` – fullwiki (RAG retrieval)
 - `evaluate_hotpot_ollama_old.py` – distractor (TF-IDF retrieval)
 
-### 1. Build index
+### Distractor setting:
+```bash
+python evaluate_hotpot_ollama_old.py \
+  --model {ollama_model_name} \
+  --dataset-dir data/distractor \
+  --num-samples 200
+```
+
+### Full wiki setting:
+
+#### 1. Build index
+
+First download [wiki_abstracts](https://nlp.stanford.edu/projects/hotpotqa/enwiki-20171001-pages-meta-current-withlinks-abstracts.tar.bz2), then run
+
 ```bash
 python build_hotpot_wiki_index.py \
   --source-dir /path/to/wiki_abstracts \
   --chroma-dir data/wiki/chroma \
   --reset
 ```
+*Note: this takes ~3 hours, full paragraph size ~5,230,000.
 
-### 2. Run eval
+#### 2. Run eval
 ```bash
 python evaluate_hotpot_ollama.py \
   --model {ollama_model_name} \
@@ -47,13 +56,6 @@ python evaluate_hotpot_ollama.py \
   --num-samples 200
 ```
 
-Distractor (old)
-```bash
-python evaluate_hotpot_ollama_old.py \
-  --model {ollama_model_name} \
-  --dataset-dir data/distractor \
-  --num-samples 200
-```
 ## Local Qwen Baseline
 
 ### Model Setup
