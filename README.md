@@ -177,11 +177,8 @@ Temperature: 0
 Context is fully provided (no retrieval)
 Supporting facts are predicted and evaluated
 
-##GPT-5.4-mini Full_prompting:
+## GPT-5.4-mini Full_prompting:
 (Prefered running in Pycharm)
-## Including:
-run_gpt_prompting_hotpot_nli.py
-hot_dev_distractor_200.json
 
 ## Configuration:
 1. create a Python 3.10 env under miniconda3 (if needed)
