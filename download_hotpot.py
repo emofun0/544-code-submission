@@ -1,17 +1,50 @@
-from datasets import load_dataset
-import json
-import os
+#!/usr/bin/env python3
+"""Download HotpotQA from Hugging Face to local disk."""
 
-os.makedirs("data", exist_ok=True)
+from __future__ import annotations
 
-## Load the HotpotQA dataset and save a subset to a local JSON file
-ds = load_dataset("hotpotqa/hotpot_qa", "distractor", split="validation[:200]")
+import argparse
+from pathlib import Path
 
-data = [dict(x) for x in ds]
+from datasets import load_dataset, DatasetDict
 
-with open("data/hotpot_dev_distractor_200.json", "w", encoding="utf-8") as f:
-    json.dump(data, f, ensure_ascii=False, indent=2)
 
-print(f"saved {len(data)} examples to data/hotpot_dev_distractor_200.json")
-print(data[0].keys())
-print(data[0])
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Download hotpotqa/hotpot_qa dataset")
+    parser.add_argument(
+        "--subset",
+        choices=["distractor", "fullwiki", "both"],
+        default="both",
+        help="Subset to download. Default: distractor",
+    )
+    parser.add_argument(
+        "--output-dir",
+        type=Path,
+        default=Path("data"),
+        help="Directory to save dataset files",
+    )
+    return parser.parse_args()
+
+
+def save_subset(name: str, output_dir: Path) -> None:
+    print(f"Downloading subset: {name}")
+    ds: DatasetDict = load_dataset("hotpotqa/hotpot_qa", name=name)
+    subset_dir = output_dir / name
+    subset_dir.mkdir(parents=True, exist_ok=True)
+    ds.save_to_disk(str(subset_dir))
+    print(f"Saved {name} to {subset_dir}")
+
+
+def main() -> None:
+    args = parse_args()
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+
+    subsets = ["distractor", "fullwiki"] if args.subset == "both" else [args.subset]
+    for subset in subsets:
+        save_subset(subset, args.output_dir)
+
+    print("Done.")
+
+
+if __name__ == "__main__":
+    main()
